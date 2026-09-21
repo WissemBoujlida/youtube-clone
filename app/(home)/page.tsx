@@ -1,7 +1,19 @@
+import { FilterCarousel } from "@/components/filter-carousel";
+
 export default function Home() {
+  const items = [
+    { label: "Gaming", value: "1" },
+    { label: "Educational", value: "2" },
+    { label: "DIY", value: "3" },
+    { label: "Tech", value: "4" },
+    { label: "Anime", value: "5" },
+    { label: "Movies", value: "6" },
+    { label: "Beauty", value: "7" },
+  ];
+
   return (
-    <div className="w-fit ml-16">
-     <p>Video will be added very soon!</p> 
+    <div className="max-w-[2400px] mx-auto px-4 pt-2.5 flex flex-col gap-y-6">
+      <FilterCarousel items={items} />
     </div>
   );
 }
