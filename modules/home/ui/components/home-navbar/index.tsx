@@ -7,7 +7,7 @@ import { AuthButton } from "@/modules/auth/ui/components/auth-button";
 
 export function HomeNavbar() {
   return (
-    <nav className="fixed top-0 left-0 right-0 h-16 bg-white flex items-center px-2 pr-5 z-50">
+    <nav className="fixed top-0 left-0 right-0 z-50 h-16 bg-white flex items-center px-2 pr-5">
       <div className="flex items-center gap-4 w-full">
         {/* Sidebar trigger & Logo */}
         <div className="flex items-center shrink-0">
