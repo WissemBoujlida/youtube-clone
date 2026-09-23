@@ -12,7 +12,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="max-w-[2400px] mx-auto px-4 pt-2.5 flex flex-col gap-y-6">
+    <div className="flex flex-col gap-y-6 pt-2.5 px-4 max-w-[2400px] mx-auto">
       <FilterCarousel items={items} />
     </div>
   );
