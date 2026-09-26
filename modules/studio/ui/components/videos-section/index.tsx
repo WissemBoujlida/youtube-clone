@@ -1,8 +1,9 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Globe2, Lock } from "lucide-react";
 
-import { InfiniteScroll } from "@/components/infinite-scroll";
 import {
   Table,
   TableBody,
@@ -11,16 +12,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { InfiniteScroll } from "@/components/infinite-scroll";
+import { VideoThumbnail } from "@/modules/studio/ui/components/video-thumbnail";
+import { VideosSectionSkeleton } from "@/modules/studio/ui/components/videos-section/videos-section-skeleton";
 
 export function VideosSection() {
   const router = useRouter();
 
+  const isLoading = true;
   const [data, setData] = useState([
     {
       id: 1,
       title: "How I Built My First SaaS",
+      description: "No description",
       visibility: "public",
       status: "ready",
       date: new Date("2026-09-20"),
@@ -31,6 +35,7 @@ export function VideosSection() {
     {
       id: 2,
       title: "10 TypeScript Tips You Should Know",
+      description: "No description",
       visibility: "public",
       status: "ready",
       date: new Date("2026-09-18"),
@@ -41,6 +46,7 @@ export function VideosSection() {
     {
       id: 3,
       title: "Building a REST API with Spring Boot",
+      description: "No description",
       visibility: "private",
       status: "ready",
       date: new Date("2026-09-15"),
@@ -51,6 +57,7 @@ export function VideosSection() {
     {
       id: 4,
       title: "My New Developer Setup",
+      description: "No description",
       visibility: "public",
       status: "ready",
       date: new Date("2026-09-12"),
@@ -61,6 +68,7 @@ export function VideosSection() {
     {
       id: 5,
       title: "Understanding Java Streams",
+      description: "No description",
       visibility: "public",
       status: "ready",
       date: new Date("2026-09-10"),
@@ -71,6 +79,7 @@ export function VideosSection() {
     {
       id: 6,
       title: "PostgreSQL Performance Tips",
+      description: "No description",
       visibility: "private",
       status: "ready",
       date: new Date("2026-09-07"),
@@ -81,6 +90,7 @@ export function VideosSection() {
     {
       id: 7,
       title: "Angular 20 Crash Course",
+      description: "No description",
       visibility: "public",
       status: "ready",
       date: new Date("2026-09-05"),
@@ -91,6 +101,7 @@ export function VideosSection() {
     {
       id: 8,
       title: "Clean Architecture Explained",
+      description: "No description",
       visibility: "public",
       status: "processing",
       date: new Date("2026-09-03"),
@@ -101,6 +112,7 @@ export function VideosSection() {
     {
       id: 9,
       title: "Docker for Backend Developers",
+      description: "No description",
       visibility: "private",
       status: "ready",
       date: new Date("2026-08-29"),
@@ -111,6 +123,7 @@ export function VideosSection() {
     {
       id: 10,
       title: "Hibernate and JPA Best Practices",
+      description: "No description",
       visibility: "public",
       status: "ready",
       date: new Date("2026-08-25"),
@@ -130,29 +143,49 @@ export function VideosSection() {
               <TableHead>Visibility</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Date</TableHead>
-              <TableHead className="text-right">Views</TableHead>
-              <TableHead className="text-right">Comments</TableHead>
-              <TableHead className="text-right pr-6">Likes</TableHead>
+              <TableHead className="text-center">Views</TableHead>
+              <TableHead className="text-center">Comments</TableHead>
+              <TableHead className="text-center pr-6">Likes</TableHead>
             </TableRow>
           </TableHeader>
 
-          <TableBody>
-            {data.map((item) => (
-              <TableRow
-                key={item.id}
-                onClick={() => router.push(`/studio/videos/${item.id}`)}
-                className="hover:cursor-pointer"
-              >
-                <TableCell>{item.title}</TableCell>
-                <TableCell>{item.visibility}</TableCell>
-                <TableCell>{item.status}</TableCell>
-                <TableCell>{item.date.toDateString()}</TableCell>
-                <TableCell>{item.views}</TableCell>
-                <TableCell>{item.comments}</TableCell>
-                <TableCell>{item.likes}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          {isLoading ? (
+            <VideosSectionSkeleton />
+          ) : (
+            <TableBody>
+              {data.map((item) => (
+                <TableRow
+                  key={item.id}
+                  onClick={() => router.push(`/studio/videos/${item.id}`)}
+                  className="hover:cursor-pointer"
+                >
+                  <TableCell className="pl-6 w-[510px]">
+                    <VideoThumbnail
+                      title={item.title}
+                      description={item.description}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center">
+                      {item.visibility === "private" ? (
+                        <Lock className="size-4 mr-2" />
+                      ) : (
+                        <Globe2 className="size-4 mr-2" />
+                      )}
+                      {item.visibility}
+                    </div>
+                  </TableCell>
+                  <TableCell>{item.status}</TableCell>
+                  <TableCell>{item.date.toDateString()}</TableCell>
+                  <TableCell className="text-center">{item.views}</TableCell>
+                  <TableCell className="text-center">{item.comments}</TableCell>
+                  <TableCell className="text-center pr-6">
+                    {item.likes}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          )}
         </Table>
       </div>
 
@@ -166,6 +199,7 @@ export function VideosSection() {
             {
               id: 11,
               title: "Doomsday",
+              description: "No description",
               visibility: "private",
               status: "failed",
               date: new Date("2012-12-12"),

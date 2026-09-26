@@ -15,6 +15,7 @@ export function StudioUploadModal() {
         <Plus className="size-4" />
         Create
       </Button>
+
       <ResponsiveModal
         open={open}
         onOpenChange={(open: boolean) => {
